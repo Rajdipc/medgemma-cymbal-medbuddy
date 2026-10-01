@@ -1,236 +1,236 @@
 # Cymbal MedBuddy: AI-Powered Medical Image Analysis
 
-**A Streamlit application leveraging Google's MedGemma model on Vertex AI for real-time analysis of medical scans.**
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](https://github.com/Rajdipc/medgemma-cymbal-medbuddy/releases)
+[![Google Cloud](https://img.shields.io/badge/Google_Cloud-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/)
+[![Vertex AI](https://img.shields.io/badge/Vertex_AI-Model_Garden-669DF6?logo=googlecloud&logoColor=white)](https://cloud.google.com/vertex-ai)
+[![Model: MedGemma 4B-IT](https://img.shields.io/badge/Model-MedGemma_4B--IT-34A853?logo=google&logoColor=white)](https://deepmind.google/models/gemma/medgemma/)
+[![Serving: vLLM](https://img.shields.io/badge/Serving-vLLM-FF6F00)](https://github.com/vllm-project/vllm)
+[![Hardware: 2x NVIDIA L4](https://img.shields.io/badge/Hardware-2x_NVIDIA_L4-76B900?logo=nvidia&logoColor=white)](https://cloud.google.com/compute/docs/gpus)
+[![Frontend: Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Python: 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Medium](https://img.shields.io/badge/Medium-Technical_Deep_Dive-black?logo=medium&logoColor=white)](https://medium.com/google-cloud/analyze-medical-images-with-medgemma-a-technical-deep-dive-fee0be18e7e0)
+
+`#MedGemma` &nbsp;•&nbsp; `#VertexAI` &nbsp;•&nbsp; `#HealthcareAI` &nbsp;•&nbsp; `#MedicalImaging` &nbsp;•&nbsp; `#Radiology` &nbsp;•&nbsp; `#MultimodalAI` &nbsp;•&nbsp; `#Streamlit` &nbsp;•&nbsp; `#Gemma` &nbsp;•&nbsp; `#GoogleCloud` &nbsp;•&nbsp; `#ModelGarden` &nbsp;•&nbsp; `#DeepMind` &nbsp;•&nbsp; `#vLLM` &nbsp;•&nbsp; `#Python`
+
+---
+
+**A multi-modal Streamlit application leveraging Google's MedGemma vision-language foundation model on Vertex AI for real-time conversational analysis of medical scans.**
 
 ![Cymbal MedBuddy Screenshot](images/docs/cymbal_medbuddy.png)
+
+> [!IMPORTANT]
+> **Clinical & Research Disclaimer:** Cymbal MedBuddy is developed strictly for **research, demonstration, and educational purposes**. MedGemma is not certified as a medical device by the FDA, CE, or other health regulatory authorities, and is **not intended for clinical diagnosis, treatment planning, or direct patient care**. Always consult qualified healthcare professionals for medical decisions.
 
 ---
 
 ## 📖 Overview
 
-Cymbal MedBuddy is a multi-modal AI assistant designed to aid radiologists, medical researchers, and students in the interpretation of diagnostic images. Users can upload a variety of medical scans (X-rays, MRIs, CTs, etc.) and engage in an interactive chat to ask specific questions about the image. The application provides detailed, clinically relevant analysis by combining the visual data from the scan with the user's textual prompts.
+Cymbal MedBuddy is a multi-modal AI clinical assistant designed to aid radiologists, medical researchers, and students in the interpretation of diagnostic images. Users can upload a variety of medical scans (X-rays, MRIs, CT scans, histopathology slides, and dermatological images) and engage in an interactive chat to query specific anatomical features or anomalies. The application combines visual data from the scan with user prompts to generate detailed, clinically relevant insights.
 
-The backend is powered by **MedGemma**, a state-of-the-art vision-language model from Google, deployed on a dedicated **Vertex AI Endpoint**. The frontend is a user-friendly and responsive interface built with **Streamlit**.
+The backend is powered by **MedGemma** (`google/medgemma@medgemma-4b-it`), an open medical foundation model from Google DeepMind, deployed on a dedicated **Vertex AI Endpoint** accelerated by `2 x NVIDIA L4` GPUs with high-throughput **vLLM** serving. The frontend is an interactive, responsive web interface built with **Streamlit**.
 
-Details of this application is published in Google Cloud Community under: https://medium.com/google-cloud/analyze-medical-images-with-medgemma-a-technical-deep-dive-fee0be18e7e0
+📰 **Technical Deep Dive:** Read the comprehensive architecture breakdown published in Google Cloud Community on Medium:  
+👉 **[Analyze Medical Images with MedGemma: A Technical Deep Dive](https://medium.com/google-cloud/analyze-medical-images-with-medgemma-a-technical-deep-dive-fee0be18e7e0)**
 
-### Project Structure
+---
 
-Below is the directory structure of the project:
-
+## 📂 Project Structure
 
 ```text
 .
-├── .gcloudignore                        # Specifies files to ignore for Google Cloud deployments.
-├── .gitignore                           # Specifies files to ignore for Git version control.
-├── .env                                 # Holds environment variables for local development.
-├── app.py                               # The main Streamlit application script.
+├── .gcloudignore                        # Files excluded from Google Cloud deployments
+├── .gitignore                           # Git ignore rules
+├── .env                                 # Environment variables (Project ID, Endpoint ID, Regions)
+├── app.py                               # Core Streamlit application script with cached client & chat logic
 ├── images/
-│   ├── app/                             # Contains icons and images used by the app.
-│   └── docs/                            # Contains images used in the documentation.
-│   └── sample_medical_images/           # Contains sample images to test.
-├── README.md                            # This documentation file.
-└── requirements.txt                     # Lists the Python dependencies.
+│   ├── app/                             # UI icons and assistant avatars
+│   ├── docs/                            # Documentation diagrams, screenshots, and walkthrough GIFs
+│   └── sample_medical_images/           # Curated medical scans for immediate evaluation
+├── README.md                            # Architecture documentation and deployment guide
+└── requirements.txt                     # Python dependencies
 ```
+
+---
 
 ## ✨ Key Features
 
-- **Multi-Modal Chat**: Accepts both an image (scan) and text prompts for contextual analysis.
-- **Interactive Interface**: Real-time, conversational interaction with the AI model.
-- **Expert-Level Analysis**: Leverages a specialized medical foundation model (MedGemma) for high-quality insights.
-- **Adjustable Model Parameters**: UI controls for `Temperature` and `Max Output Tokens` to fine-tune model creativity and response length.
-- **Chat History Management**: Easily clear the conversation or export the entire chat history to a `.txt` file for record-keeping.
-- **Robust Error Handling**: Gracefully handles potential API errors (e.g., permissions, quotas) and provides clear feedback to the user.
-- **Efficient & Scalable Backend**: Caches the Vertex AI model connection for low-latency responses.
+- **Multi-Modal Diagnostic Chat:** Accepts diagnostic images alongside free-form clinical queries for contextual analysis.
+- **Specialized Medical Foundation Model:** Powered by Google's `MedGemma-4B-IT`, fine-tuned for medical reasoning and radiology domain expertise.
+- **High-Throughput vLLM Serving:** Deployed using Vertex AI Model Garden's optimized `pytorch-vllm-serve` container on NVIDIA L4 GPUs.
+- **Tunable Model Hyperparameters:** Real-time UI sliders to adjust `Temperature` (conservatism vs. creativity) and `Max Output Tokens`.
+- **Low-Latency Session Caching:** Leverages Streamlit's `@st.cache_resource` to cache Vertex AI endpoint connections across interactions.
+- **Conversation Management:** Clear session state or export the full clinical dialogue into a timestamped `.txt` summary.
+- **Resilient Error Handling:** Gracefully catches API rate limits, quota limits, and authentication errors with actionable UI alerts.
 
 ---
 
 ## 🏗️ System Architecture
 
-The application operates on a simple yet powerful client-server architecture:
+The application implements a decoupled, cloud-native architecture:
 
-1.  **Frontend (User's Browser)**: The user interacts with the **Streamlit** web interface to upload an image and send messages.
-2.  **Web Server (Streamlit)**: The Python-based Streamlit server running `app.py` manages the UI, session state, and user input.
-3.  **Backend (Google Cloud)**: When a user sends a prompt, the Streamlit backend constructs a request containing the prompt and the base64-encoded image.
-4.  **Vertex AI Endpoint**: The request is sent to a dedicated, scalable endpoint hosting the MedGemma model.
-5.  **MedGemma Model**: The model processes the image and text, generates a clinical analysis, and sends the response back through the chain.
+```mermaid
+flowchart LR
+    Clinician["Clinician or Researcher"] -->|Upload Scan + Clinical Prompt| WebApp["Streamlit UI (app.py)"]
+    WebApp -->|Base64 Image + Structured System Prompt| Endpoint["Vertex AI Dedicated Endpoint"]
+    Endpoint -->|vLLM Serving Container| MedGemma["Google MedGemma (4B-IT)"]
+    MedGemma -->|Diagnostic Insights & Findings| WebApp
+    WebApp -->|Interactive Report & Conversation History| Clinician
+```
 
+1. **Frontend Layer (Streamlit):** The user accesses the web UI, uploads a scan, adjusts inference parameters, and submits questions.
+2. **Application Server (`app.py`):** Encodes the scan into Base64, formats the conversational history, and constructs the clinical system prompt.
+3. **Vertex AI Dedicated Endpoint:** Manages autoscaling, TLS termination, and traffic routing to GPU compute nodes (`g2-standard-24`).
+4. **Model Serving Runtime:** The `pytorch-vllm-serve` container executes tensor-parallel inference on `google/medgemma@medgemma-4b-it`.
 
 ---
 
 ## 📊 Workflow Sequence Diagram
 
-The following diagram illustrates the end-to-end data flow, from the user's initial interaction to the final AI-generated response.
+The diagram below illustrates the end-to-end data lifecycle from scan upload to final diagnostic rendering:
 
 ![Sequence Diagram](images/docs/sequence_diagram.png)
 
 ---
 
-## 🚀 Setup and Deployment Guide
+## 🧪 Sample Medical Scans & Test Prompts
 
-Follow these steps to set up the environment, deploy the model, and run the application.
+The repository includes sample medical scans in [`images/sample_medical_images/`](images/sample_medical_images/) to test the assistant immediately:
+
+| Modality / Image | File Path | Suggested Evaluation Prompt |
+|---|---|---|
+| **Chest Radiograph (PA View)** | `images/sample_medical_images/chest_xray.jpg` | *"Examine this PA chest radiograph. Are there any signs of focal consolidation, pneumothorax, or cardiomegaly?"* |
+| **Brain MRI (Neuro-Oncology)** | `images/sample_medical_images/oligodendrogliona.jpg` | *"Describe the intracranial lesion visible on this axial MRI slice. What are its borders and potential differential diagnoses?"* |
+| **Dermatoscopy (Skin Lesion)** | `images/sample_medical_images/Basal_Cell_Carcinoma.jpg` | *"Evaluate the clinical morphology of this dermatological lesion. Note any ulceration, telangiectasia, or irregular borders."* |
+| **Histopathology (Biopsy)** | `images/sample_medical_images/high-grade-carcinoma.png` | *"Analyze the cell density, architectural disruption, and nuclear atypia present in this histological section."* |
+
+---
+
+## 🚀 Setup and Deployment Guide
 
 ### 1. Prerequisites
 
-- **Google Cloud Account**: With billing enabled.
-- **Google Cloud SDK**: `gcloud` CLI installed and authenticated (`gcloud auth login`, `gcloud config set project YOUR_PROJECT_ID`).
-- **APIs Enabled**: Enable the Vertex AI API in your GCP project.
-- **Python 3.10+** and `pip`.
-- **Git**: For cloning the repository.
+- **Google Cloud Project** with active billing.
+- **Google Cloud SDK (`gcloud`)** installed and authenticated:
+  ```bash
+  gcloud auth login
+  gcloud config set project <YOUR_PROJECT_ID>
+  ```
+- **Vertex AI API** enabled in your GCP project.
+- **Python 3.10+** and `pip` (or `uv`).
 
-### 2. Deploy the MedGemma Model on Vertex AI
+---
 
-The core of this application is the MedGemma model. You must first deploy it from the Model Garden to a Vertex AI Endpoint.
+### 2. Deploy MedGemma on Vertex AI Model Garden
 
-1.  Navigate to the **Model Garden** in the Google Cloud Console.
-2.  Search for and select **MedGemma**.
-3.  Click **Deploy**. You will be prompted to select a model variant. For this project, we use `google/medgemma-4b-it`.
-4.  Click **Deploy** again and configure the endpoint:
-    -   **Endpoint Name**: Give it a descriptive name (e.g., `medgemma-endpoint`).
-    -   **Region**: Select a region, for example, `us-central1`.
-    -   **Machine Type**: For optimal performance, select a GPU-accelerated machine type. The `g2-standard-24` with `2 x NVIDIA_L4` GPUs is a recommended configuration.
-5.  Click **Deploy**. The deployment will take several minutes.
-6.  Once deployed, navigate to **Vertex AI > Endpoints**. Click on your new endpoint and **note down its ID and Region**. You will need these for the next step.
-  
-
-You can also use the following command to deploy the endpoint. Replace `<YOUR_PROJECT_ID>` with your project id. Region used is `us-central1`.
+Deploy `google/medgemma@medgemma-4b-it` using either the Cloud Console or the `gcloud` CLI:
 
 ```bash
-gcloud auth login
-
 gcloud ai model-garden models deploy \
---model="google/medgemma@medgemma-4b-it" \
---region="us-central1" \
---project="<YOUR_PROJECT_ID>" \
---accept-eula \
---machine-type="g2-standard-24" \
---accelerator-type="NVIDIA_L4" \
---container-image-uri="us-docker.pkg.dev/vertex-ai/vertex-vision-model-garden-dockers/pytorch-vllm-serve:20250430_0916_RC00_maas" \
---use-dedicated-endpoint \
---endpoint-display-name="google_medgemma-4b-it-mg-one-click-deploy"
+  --model="google/medgemma@medgemma-4b-it" \
+  --region="us-central1" \
+  --project="<YOUR_PROJECT_ID>" \
+  --accept-eula \
+  --machine-type="g2-standard-24" \
+  --accelerator-type="NVIDIA_L4" \
+  --container-image-uri="us-docker.pkg.dev/vertex-ai/vertex-vision-model-garden-dockers/pytorch-vllm-serve:20250430_0916_RC00_maas" \
+  --use-dedicated-endpoint \
+  --endpoint-display-name="google_medgemma-4b-it-endpoint"
 ```
+
+Once deployment completes (approx. 10–15 minutes), navigate to **Vertex AI > Endpoints** in the Cloud Console and note your **Endpoint ID** and **Region**.
+
+---
 
 ### 3. Configure Environment Variables
 
-The application uses a `.env` file to securely manage credentials. Create a file named `.env` in the root of the project directory with below details.
-- Replace `your-gcp-project-id` with the correct project id.
-- Replace `<your-endpoint-id>` with model endpoint id.
-- Check for the region.
+Create a `.env` file in the project root:
 
 ```env
-GCP_PROJECT_ID="your-gcp-project-id" # Change to your GCP project id
-GCP_REGION="us-central1" # The region of your project, e.g., us-central1
-MODEL_ENDPOINT_ID=<your-endpoint-id> # The ID of the Vertex AI Endpoint you deployed
-MODEL_ENDPOINT_REGION="us-central1" # The region where your endpoint is deployed
+GCP_PROJECT_ID="your-gcp-project-id"
+GCP_REGION="us-central1"
+MODEL_ENDPOINT_ID="your-vertex-endpoint-id"
+MODEL_ENDPOINT_REGION="us-central1"
 ```
+
+---
 
 ### 4. Local Development
 
-To run the application on your local machine for testing:
+```bash
+# 1. Clone the repository
+git clone https://github.com/Rajdipc/medgemma-cymbal-medbuddy.git
+cd medgemma-cymbal-medbuddy
 
-1.  **Clone the repository:**
-    ```bash
-    git clone <your-repository-url>
-    cd medgemma-cymbal-medbuddy
-    ```
+# 2. Set up virtual environment
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-2.  **Create a virtual environment:**
-    ```bash
-    python -m venv venv
-    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-    ```
+# 3. Install dependencies
+pip install -r requirements.txt
 
-3.  **Install dependencies:** Create a `requirements.txt` file with the following content:
-    ```txt
-    google
-    google-cloud-core
-    google-cloud-aiplatform
-    streamlit
-    gunicorn
-    python-dotenv
-    logging
-    Pillow
-    ```
-    Then, install the packages:
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-4.  **Run the Streamlit app:**
-    ```bash
-    streamlit run app.py
-    ```
-    Click on the URL displayed to open the application.
-
-### 5. Run on Google Cloud Shell
-To run the application on Google Cloud Shell:
-
-1.  **Activate the Cloud Shell:**
-   
-    - From the Google Cloud Console click on the **Cloud Shell**.
-    - Run `gcloud auth list` in Cloud Shell.
-    - Run `gcloud config set project <PROJECT_ID>` to set your project id. Provide correct project id.
-    - 
-
-2.  **Clone the repository:**
-    ```bash
-    git clone <your-repository-url>
-    cd medgemma-cymbal-medbuddy
-    ```
-
-    Make sure to change the `.env` file with required parameters.
-
-3.  **Run the application:**
-   
-    - Use [uv](https://docs.astral.sh/uv/) (Python's extremely fast package and project manager) to run the application. It comes pre-installed in Cloud Shell. Create a virtual environment using `uv venv`
-    - Run `uv pip install -r requirements.txt` to install the dependencies.
-    - Start the application using `uv run streamlit run app.py --server.port=8080 --server.enableCORS=false` (disabling `--server.enableCORS` for testing as it interferes with Cloud Shell).
-    - Click `Web Preview` to access the application.
-
-### 6. Other ways of running the application:
-
-For production purposes, you can deploy the application on [Cloud Run](https://cloud.google.com/run?e=0?utm_source%3Dlinkedin) or [App Engine](https://cloud.google.com/appengine?e=0?utm_source%3Dlinkedin). Make sure IAM roles are provided correctly following best practices. Follow official documentation for more details.
+# 4. Launch the application
+streamlit run app.py
+```
 
 ---
 
+### 5. Run on Google Cloud Shell
+
+```bash
+# Set active project
+gcloud config set project <YOUR_PROJECT_ID>
+
+# Clone repository
+git clone https://github.com/Rajdipc/medgemma-cymbal-medbuddy.git
+cd medgemma-cymbal-medbuddy
+
+# Create virtual environment using uv (pre-installed in Cloud Shell)
+uv venv
+source .venv/bin/activate
+uv pip install -r requirements.txt
+
+# Launch with Web Preview support
+streamlit run app.py --server.port=8080 --server.enableCORS=false
+```
+Click **Web Preview > Preview on port 8080** in Cloud Shell to open the UI.
+
+---
+
+### 6. Production Deployment Options
+
+For production hosting, deploy the Streamlit container using:
+- **Cloud Run:** Fully managed serverless container platform with HTTPS, IAM authentication, and autoscaling.
+- **App Engine Flexible:** Managed container runtime for persistent web applications.
+
+---
 
 ## ⚙️ Code Deep Dive
 
-The application's logic is contained within `app.py`. Here are some key components:
+The core logic is structured in [`app.py`](app.py):
 
-- **`fn_initialize_model()`**: This function uses the `@st.cache_resource` decorator. This is a critical optimization that tells Streamlit to run this function only once, establishing the connection to the Vertex AI endpoint and caching the connection object. This prevents costly re-initialization on every user interaction, making the app significantly faster.
-
-- **`fn_run_query()`**: This is the core AI interaction function.
-  - **System Prompt**: It constructs a detailed `system_instruction` that guides the MedGemma model to behave as a medical imaging expert. This is a key aspect of prompt engineering that ensures high-quality, consistent, and safe responses.
-  - **Payload Formatting**: It packages the system prompt, user's text prompt, and the base64-encoded image into the JSON payload format expected by the Vertex AI API.
-  - **Error Handling**: It includes specific `except` blocks for common `google.api_core` exceptions, providing targeted and useful error messages to the user and logs.
-- **`st.session_state`**: Streamlit's session state is used extensively to maintain the application's state across user interactions (reruns).
-  - `st.session_state.messages`: A list that stores the entire chat history.
-  - `st.session_state.img_b64`: Stores the uploaded image so it doesn't need to be re-processed.
-  - `st.session_state.temperature` & `st.session_state.max_tokens`: These are linked directly to the UI sliders, allowing user settings to persist.
+- **`fn_initialize_model()`:** Utilizes Streamlit's `@st.cache_resource` decorator to instantiate the Vertex AI client and endpoint object exactly once per worker process, avoiding expensive reconnection handshakes on UI reruns.
+- **`fn_run_query()`:**
+  - **System Instruction:** Injects a structured clinical prompt enforcing role constraints (e.g. radiological observation, differential formatting, and certainty guidance).
+  - **Payload Composition:** Assembles the multi-modal request combining Base64 image bytes, text prompt history, and inference hyperparameters (`temperature`, `max_output_tokens`).
+  - **Fault Tolerance:** Traps `google.api_core` exceptions to display clear recovery advice for auth, quota, or network issues.
+- **`st.session_state`:** Preserves chat history, uploaded scan bytes, and custom hyperparameter settings throughout the clinician's session.
 
 ---
 
-## ⚙️ Sample Outputs
+## 📸 Sample Outputs & Walkthrough
 
-![Screenshot#1](images/docs/test-1.gif)
-
-![Screenshot#2](images/docs/test-2.gif)
-
-![Screenshot#3](images/docs/test-3.gif)
-
-## 🔗 References
-
-- https://deepmind.google/models/gemma/medgemma/
-- https://research.google/blog/medgemma-our-most-capable-open-models-for-health-ai-development/
-- https://developers.google.com/health-ai-developer-foundations/medgemma
-- https://developers.google.com/health-ai-developer-foundations/medgemma/get-started
-- https://developers.google.com/health-ai-developer-foundations/medgemma/model-card
-- https://cloud.google.com/model-garden?e=0?utm_source%3Dlinkedin
-- https://cloud.google.com/vertex-ai/docs/general/deployment
+| Diagnostic Session 1 | Diagnostic Session 2 | Diagnostic Session 3 |
+|:---:|:---:|:---:|
+| ![Chest X-Ray Walkthrough](images/docs/test-1.gif) | ![Brain MRI Walkthrough](images/docs/test-2.gif) | ![Dermatology Walkthrough](images/docs/test-3.gif) |
 
 ---
 
+## 🔗 References & Official Resources
 
-
-
+- [Google DeepMind MedGemma Overview](https://deepmind.google/models/gemma/medgemma/)
+- [Google Research Blog: MedGemma](https://research.google/blog/medgemma-our-most-capable-open-models-for-health-ai-development/)
+- [Google Health AI Developer Foundations](https://developers.google.com/health-ai-developer-foundations/medgemma)
+- [MedGemma Model Card](https://developers.google.com/health-ai-developer-foundations/medgemma/model-card)
+- [Vertex AI Model Garden Documentation](https://cloud.google.com/model-garden)
+- [Vertex AI Endpoints Deployment Guide](https://cloud.google.com/vertex-ai/docs/general/deployment)
+- [Medium Technical Deep Dive Article](https://medium.com/google-cloud/analyze-medical-images-with-medgemma-a-technical-deep-dive-fee0be18e7e0)
