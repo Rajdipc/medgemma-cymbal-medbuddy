@@ -9,6 +9,8 @@
 [![Frontend: Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Python: 3.10+](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Medium](https://img.shields.io/badge/Medium-Technical_Deep_Dive-black?logo=medium&logoColor=white)](https://medium.com/google-cloud/analyze-medical-images-with-medgemma-a-technical-deep-dive-fee0be18e7e0)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/Rajdipc/medgemma-cymbal-medbuddy.git&cloudshell_open_in_editor=README.md)
 
 `#MedGemma` &nbsp;•&nbsp; `#VertexAI` &nbsp;•&nbsp; `#HealthcareAI` &nbsp;•&nbsp; `#MedicalImaging` &nbsp;•&nbsp; `#Radiology` &nbsp;•&nbsp; `#MultimodalAI` &nbsp;•&nbsp; `#Streamlit` &nbsp;•&nbsp; `#Gemma` &nbsp;•&nbsp; `#GoogleCloud` &nbsp;•&nbsp; `#ModelGarden` &nbsp;•&nbsp; `#DeepMind` &nbsp;•&nbsp; `#vLLM` &nbsp;•&nbsp; `#Python`
 
